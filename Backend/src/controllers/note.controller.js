@@ -5,10 +5,10 @@ const HTTPSTATUSCODE = require('../utils/httpStatusCode')
 const getAllNotes = async (req,res) => {
     try {
         //
-        const notes = await Note.find().populate('uploadedBy').populate('discipline');
-        return res.status(200).json(notes);
+        const notes = await Note.find().populate('uploadedBy').populate('discipline')
+        return res.status(200).json(notes)
     } catch (error) {
-        return res.status(500).json(error);
+        return res.status(500).json(error)
     }
 };
 
@@ -16,34 +16,47 @@ const getAllNotes = async (req,res) => {
 const getNoteById = async (req,res) => {
     try {
         const id = req.body
-        const note = await Note.findById(id).populate('uploadedBy').populate('discipline');
+        const note = await Note.findById(id).populate('uploadedBy').populate('discipline')
         if (!note) {
-            throw new Error('Note not found');
+            throw new Error('Note not found')
         }
         return res.status(200).json(note)
     } catch (error) {
-        return res.status(500).json(error);
+        return res.status(500).json(error)
     }
 };
 
-//Obtengo el contenido de un temario
+//Obtengo el contenido de una disciplina.
 const getNotesByDiscipline = async (req,res) => {
     try {
         const disciplineId = req.body
-        const notes = await Note.find({ discipline: disciplineId }).populate('uploadedBy').populate('discipline');
+        const notes = await Note.find({ discipline: disciplineId }).populate('uploadedBy').populate('discipline')
         return res.status(200).json(notes)
     } catch (error) {
-        return res.status(500).json(error);
+        return res.status(500).json(error)
     }
 };
-// Read (Get notes by institution)
+//Obtengo todas las notas asociadas a una institución
 const getNotesByInstitution = async (req,res) => {
     try {
         const institutionId = req.body
-        const notes = await Note.find({ institution: institutionId }).populate('uploadedBy').populate('discipline').populate('institution');
-        return res.status(200).json(notes);
+        const notes = await Note.find({ institution: institutionId }).populate('uploadedBy').populate('discipline').populate('institution')
+        return res.status(200).json(notes)
     } catch (error) {
-        return res.status(500).json(error);
+        return res.status(500).json(error)
+    }
+};
+
+//Obtengo todas las notas asociadas a un temario.
+const getNotesBySyllabus = async (req, res) => {
+    try {
+        const { id } = req.body
+
+        // Buscar todas las notas que estén asociadas al syllabus
+        const notes = await Note.find({ syllabus: id })
+        return res.status(200).json(notes)
+    } catch (error) {
+        return res.status(500).json({ message: 'Error getting notes by syllabus: ' + error.message })
     }
 };
 
@@ -51,11 +64,11 @@ const getNotesByInstitution = async (req,res) => {
 const createNote = async (req,res) => {
     try {
         const noteData = req.body
-        const newNote = new Note(noteData);
+        const newNote = new Note(noteData)
         await newNote.save();
         return res.status(200).json(newNote)
     } catch (error) {
-        return res.status(500).json(error);
+        return res.status(500).json(error)
     }
 };
 
@@ -65,13 +78,13 @@ const createNote = async (req,res) => {
 const updateNote = async (req,res) => {
     try {
         const {id, updatedData} = req.body
-        const note = await Note.findByIdAndUpdate(id, updatedData, { new: true }).populate('uploadedBy').populate('discipline');
+        const note = await Note.findByIdAndUpdate(id, updatedData, { new: true }).populate('uploadedBy').populate('discipline')
         if (!note) {
-            throw new Error('Note not found');
+            throw new Error('Note not found')
         }
         return res.status(200).json(note)
     } catch (error) {
-        return res.status(500).json(error);
+        return res.status(500).json(error)
     }
 };
 
@@ -79,13 +92,13 @@ const updateNote = async (req,res) => {
 const deleteNote = async (req,res) => {
     try {
         const id = req.body
-        const note = await Note.findByIdAndDelete(id);
+        const note = await Note.findByIdAndDelete(id)
         if (!note) {
-            throw new Error('Note not found');
+            throw new Error('Note not found')
         }
         return res.status(200).json(note)
     } catch (error) {
-        return res.status(500).json(error);
+        return res.status(500).json(error)
     }
 };
 
