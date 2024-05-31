@@ -5,7 +5,7 @@ const noteSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    content: {
+    notePath: {
         type: String,
         required: true
     },
@@ -19,13 +19,9 @@ const noteSchema = new mongoose.Schema({
         ref: 'Discipline',
         required: true
     },
-    topic: {
-        type: String,
-        required: true
-    },
-    uploadDate: {
-        type: Date,
-        default: Date.now
+    syllabus: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Syllabus'
     },
     institution: {
         type: mongoose.Schema.Types.ObjectId,

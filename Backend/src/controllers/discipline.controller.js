@@ -8,7 +8,7 @@ const getAllDisciplines = async (req, res) => {
         const disciplines = await Discipline.find()
             .populate('institutions') // Obtengo la institución
             .populate({
-                path: 'content.notes', // Obtengo los "temarios" de la disciplina.
+                path: 'syllabus.notes', // Obtengo los "temarios" de la disciplina.
                 populate: { path: 'notes' } //Obtengo el contenido de los temarios.
             });
             return res.status(200).json(disciplines);
@@ -24,7 +24,7 @@ const getDisciplineById = async (req, res) => {
         const discipline = await Discipline.findById(id)
             .populate('institutions') 
             .populate({
-                path: 'content.notes',
+                path: 'syllabus.notes',
                 populate: { path: 'notes' } 
             });
         if (!discipline) {
@@ -75,7 +75,7 @@ const updateDiscipline = async (req, res) => {
         const discipline = await Discipline.findByIdAndUpdate(id, updatedData, { new: true })
             .populate('institutions') 
             .populate({
-                path: 'content.notes', 
+                path: 'syllabus.notes', 
                 populate: { path: 'notes' } 
             });
         if (!discipline) {

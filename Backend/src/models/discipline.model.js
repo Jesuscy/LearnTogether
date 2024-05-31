@@ -10,14 +10,11 @@ const disciplineSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Institution'
     }],
-    content: [{
-        topic: String,
-        description: String,
-        notes: [{
+    syllabus: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Note'
-        }]
-    }]
+    }
+    
 });
 
 module.exports = mongoose.model('Discipline', disciplineSchema,'disciplines');

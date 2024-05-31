@@ -26,7 +26,7 @@ const getNoteById = async (req,res) => {
     }
 };
 
-// Read (Get notes by discipline)
+//Obtengo el contenido de un temario
 const getNotesByDiscipline = async (req,res) => {
     try {
         const disciplineId = req.body
