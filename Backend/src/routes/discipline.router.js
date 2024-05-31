@@ -1,0 +1,10 @@
+const express = require("express")
+const disciplineRouter = require(express.Router)
+const {createDiscipline, getAllDisciplines, getDisciplineById, getDisciplinesByInstitution, updateDiscipline, deleteDiscipline} = require("../controllers/discipline.controller")
+
+disciplineRouter.get("/discipline", getDisciplineById)
+disciplineRouter.get("/disciplines", getAllDisciplines)
+disciplineRouter.get("/disciplines/institution", getDisciplinesByInstitution)
+disciplineRouter.post("/create",createDiscipline)
+disciplineRouter.post("/update", updateDiscipline)
+disciplineRouter.post("/delete", deleteDiscipline)
